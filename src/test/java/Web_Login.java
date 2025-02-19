@@ -32,6 +32,7 @@ public class Web_Login {
             //Click login butoon
             WebElement loginButton = driver.findElement(btn_login);
             loginButton.click();
+            /*
 
             // If no error message, check if login is successful
             WebElement warningButton = driver.findElement(By.xpath("//*[@id=\"mainContent\"]/div/div/div[2]/div/div/div/div[2]/button"));
@@ -41,12 +42,40 @@ public class Web_Login {
                 System.out.println("Login failed!");
                 }
 
+             */
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Find the warning button
+            WebElement warningButton = driver.findElement(By.className("warning-modal"));
+
+            // Check if the warning btn
+            if (warningButton.isDisplayed()) {
+
+                // Click Pop-up Warning
+                WebElement closeModalButton = driver.findElement(By.className("close-modal"));
+
+
+                if (closeModalButton.isDisplayed()) {
+
+                    closeModalButton.click();
+
+
+                    System.out.println("Login successful!");
+                }
+            } else {
+
+                System.out.println("Login failed!");
+            }
         } catch (Exception e) {
            System.out.println("Error occurred during the login test.");
         } finally {
             //Close the browser
-            //driver.close();
-            //driver.quit();
+            driver.close();
+            driver.quit();
         }
     }
 }
